@@ -8,12 +8,12 @@
 </p>
 ---
 
-## 🚀 Introduction
+## Overview
 
 We propose **AIDO** — an **A**utomated **I**nstruction **D**ata **O**ptimization framework that systematically enhances instruction tuning datasets through **two key stages**:  
 **data selection** and **data revision**.
 
-### 🧩 Two-Stage Optimization Framework
+### Two-Stage Optimization Framework
 
 1. **Stage 1 — Data Selection:**  
    AIDO separates high- and low-quality samples using a **coarse-grained LLM scoring** module and a **fine-grained metric ranking** module, ensuring precise filtering of suboptimal data.
