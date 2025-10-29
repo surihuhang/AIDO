@@ -21,7 +21,7 @@ We propose **AIDO** — an **A**utomated **I**nstruction **D**ata **O**ptimizati
 2. **Stage 2 — Data Revision:**  
    Low-quality samples are **iteratively revised** via evaluation and semantic consistency checks — correcting factual errors, completing omissions, removing redundancies, and improving alignment between instructions and responses.
 
-![AIDO Framework](imgs/AIDO.png)
+![AIDO Framework](Figures/framework.png)
 
 ### Key Highlights
 
