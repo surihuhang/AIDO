@@ -6,14 +6,20 @@
     <a href="https://github.com/surihuhang/AIDO/blob/main/LICENSE"><img src="https://img.shields.io/github/license/surihuhang/AIDO"></a>
     <a href=""><img src="https://img.shields.io/badge/🤗 HuggingFace-Data & Models-green"></a>
 </p>
+
 ---
 
+## 📑 Contents
+- [Overview](#overview)
+- [Key Highlights](#key-highlights)
+- [Human Evaluation](#human-evaluation)
+- [Install](#install)
+- [Usage](#Usage)
+---
 
 ## Overview
 
 We propose **AIDO** — an **A**utomated **I**nstruction **D**ata **O**ptimization framework that systematically enhances instruction tuning datasets through **two key stages**:  **data selection** and **data revision**.
-
-
 
 1. **Stage 1 — Data Selection:**  
    AIDO separates high- and low-quality samples using a **coarse-grained LLM scoring** module and a **fine-grained metric ranking** module, ensuring precise filtering of suboptimal data.
@@ -23,7 +29,7 @@ We propose **AIDO** — an **A**utomated **I**nstruction **D**ata **O**ptimizati
 
 ![AIDO Framework](Figures/framework.png)
 
-### Key Highlights
+## Key Highlights
 
 - **Performance Gains:**  
   - Achieves **61.02%** accuracy on *Alpaca*, surpassing prior SoTA selection and revision methods by **+2.50%** and **+2.09%**.  
@@ -44,17 +50,32 @@ AIDO not only enhances **data quality** but also significantly improves **reason
 ## Human Evaluation
 
 We conducted a rigorous human evaluation with **three trained annotators**, employing **majority voting** to determine outcomes.  
-All sample sources and versions were **anonymized** to prevent bias. 
+All sample sources and versions were **anonymized** to prevent bias.  
 Demonstrates AIDO’s **comprehensive correction** across all components evaluation — instructions, inputs, and outputs.
 
 - **Lose probabilities:** 7.00% (*Alpaca*), 4.00% (*Dolly*)  
-- **Instruction/Input failure rates:** reduced to 2.50% and 3.00%, respectively
-- **Ouput failure rates:** reduced to 6.50% and 7.00%, respectively
+- **Instruction/Input failure rates:** reduced to 2.50% and 3.00%, respectively  
+- **Output failure rates:** reduced to 6.50% and 7.00%, respectively  
 
-<center>
-![AIDO Human Evaluation](Figures/huamn-eval.png)
-</center>
+<p align="center">
+  <img src="Figures/huamn-eval.png" alt="AIDO Human Evaluation" width="60%">
+</p>
+
+---
+
+## Install
 
 
+---
 
+
+## Usage 
+
+
+---
+
+## Contact
+
+
+---
 
