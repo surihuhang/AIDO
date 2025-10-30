@@ -45,7 +45,7 @@ AIDO not only enhances **data quality** but also significantly improves **reason
 
 We conducted a rigorous human evaluation with **three trained annotators**, employing **majority voting** to determine outcomes.  
 All sample sources and versions were **anonymized** to prevent bias. 
-Demonstrates AIDO’s **comprehensive correction** across all components — instructions, inputs, and outputs.
+Demonstrates AIDO’s **comprehensive correction** across all components evaluation — Instructions & Input, and Output.
 
 - **Lose probabilities:** 7.00% (*Alpaca*), 4.00% (*Dolly*)  
 - **Instruction/Input failure rates:** reduced to 2.50% and 3.00%, respectively
