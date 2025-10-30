@@ -181,7 +181,7 @@ def parse_args():
     parser.add_argument("--max_length", type=int, default=512)
     parser.add_argument("--start_idx", type=int, default=0)
     parser.add_argument("--end_idx", type=int, default=-1)
-    parser.add_argument("--prompt", type=str, default='wiz', help='wiz, alpaca')
+    parser.add_argument("--prompt", type=str, default='alpaca', help='wiz, alpaca')
     parser.add_argument("--mod", type=str, default='pre', help='pre, cherry')
 
     # --- Part 2 (Cluster) ---
