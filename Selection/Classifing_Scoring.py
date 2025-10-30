@@ -179,45 +179,15 @@ Justification: {no more than 100 words; mention strengths and weaknesses in term
     # --- Argparse setup (modified) ---
     parser = argparse.ArgumentParser(description="Process instruction data using an LLM API.")
     
-    parser.add_argument(
-        '--input_path', 
-        type=str, 
-        required=True, 
-        help='Path to the input JSON file.'
-    )
+    parser.add_argument( '--input_path', type=str,  required=True,  help='Path to the input JSON file.')
     # --- Change: output_path -> output_dir ---
-    parser.add_argument(
-        '--output_dir', 
-        type=str, 
-        required=True, 
-        help='Path to the output directory for high/low score files.'
-    )
+    parser.add_argument('--output_dir', type=str, required=True, help='Path to the output directory for high/low score files.')
     # --- (Other parameters remain unchanged) ---
-    parser.add_argument(
-        '--api_base', 
-        type=str, 
-        default="http://0.0.0.0:9000/v1", 
-        help='The base URL for the OpenAI compatible API.'
-    )
-    parser.add_argument(
-        '--model_name', 
-        type=str, 
-        default='deepseek-chat', 
-        help='The name of the model to use.'
-    )
-    parser.add_argument(
-        '--prompt_name', 
-        type=str, 
-        default='qac_no_shot', 
-        choices=AVAILABLE_PROMPTS.keys(), 
-        help='The name of the system prompt to use.'
-    )
-    parser.add_argument(
-        '--max_workers', 
-        type=int, 
-        default=len(API_KEYS), 
-        help='Maximum number of concurrent threads.'
-    )
+    parser.add_argument('--api_base', type=str, default="http://0.0.0.0:9000/v1", help='The base URL for the OpenAI compatible API.')
+    parser.add_argument('--model_name', type=str, default='deepseek-chat',help='The name of the model to use.')
+    parser.add_argument('--prompt_name', type=str, default='qac_no_shot', choices=AVAILABLE_PROMPTS.keys(), help='The name of the system prompt to use.')
+    parser.add_argument('--max_workers', type=int, default=len(API_KEYS), help='Maximum number of concurrent threads.')
+    parser.add_argument("--name", type=str, required=True, help="Base name for output files (e.g., 'Dolly', 'Alpaca').")
 
     args = parser.parse_args()
 
@@ -228,8 +198,8 @@ Justification: {no more than 100 words; mention strengths and weaknesses in term
     selected_system_prompt = AVAILABLE_PROMPTS[args.prompt_name]
 
     # --- Change: Handle output directory and files ---
-    output_file_high = os.path.join(args.output_dir, 'Data_stage_1_high.json')
-    output_file_low = os.path.join(args.output_dir, 'Data_stage_1_low.json')
+    output_file_high = os.path.join(args.output_dir, f"{args.name}_stage_1_high.json")
+    output_file_low = os.path.join(args.output_dir, f"{args.name}_stage_1_low.json")
 
     # Ensure output directory exists
     if not os.path.exists(args.output_dir):
