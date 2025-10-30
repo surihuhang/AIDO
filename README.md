@@ -90,8 +90,8 @@ CUDA_VISIBLE_DEVICES=0,1 nohup python -m vllm.entrypoints.openai.api_server \
     --gpu-memory-utilization 0.95 \
     --max-model-len 8192 > vllm-70B.log 2>&1 &
 ```
-* **`YOUR_API_PORT`** *: Port for your OpenAI-compatible API server (e.g., 9000)
-* **`./models/Llama-3.3-70B-Instruct`** *: Path to your local model
+* **`YOUR_API_PORT`**: Port for your OpenAI-compatible API server (e.g., 9000)
+* **`./models/Llama-3.3-70B-Instruct`**: Path to your local model
 
 #### (2) Step 1 — Coarse-Grained LLM Scoring & Classification
 
@@ -126,19 +126,19 @@ CUDA_VISIBLE_DEVICES=2,3 nohup python Select/Clustering_Ranking.py \
     --mod pre \
     --name Dolly > Dolly_stage_2.log 2>&1 &
 ```
-* **`--json_data_path`** *: Directory containing scoring results from Step 1.
+* **`--json_data_path`**: Directory containing scoring results from Step 1.
 
-* **`--model_name_or_path`** *: Path to smaller evaluation model (8B).
+* **`--model_name_or_path`**: Path to smaller evaluation model (8B).
 
-* **`--output_dir`** *: Output directory for clustered/ranked data.
+* **`--output_dir`**: Output directory for clustered/ranked data.
 
-* **`--max_length`** *: Maximum token length for model input.
+* **`--max_length`**: Maximum token length for model input.
 
-* **`--prompt`** *: Prompt type or dataset template (e.g., alpaca, dolly).
+* **`--prompt`**: Prompt type or dataset template (e.g., alpaca, dolly).
 
-* **`--mod`** *: Mode for data processing (pre, post, etc.).
+* **`--mod`**: Mode for data processing (pre, post, etc.).
 
-* **`--name`** *: Dataset name for log identification.
+* **`--name`**: Dataset name for log identification.
 
 
 ### 2. Data Revision Module
@@ -186,21 +186,21 @@ Then execute:
 bash Revise/Iterative_Revise_Run.sh
 ```
 
-* **`Strong_API_BASE`** *: API of the stronger model (used for evaluation/revision).
+* **`Strong_API_BASE`**: API of the stronger model (used for evaluation/revision).
 
-* **`Strong_MODEL_NAME`** *: Model name of the strong model (e.g., Llama-70B).
+* **`Strong_MODEL_NAME`**: Model name of the strong model (e.g., Llama-70B).
 
-* **`Backbone_API_BASE`** *: API of the smaller model (used as backbone).
+* **`Backbone_API_BASE`**: API of the smaller model (used as backbone).
 
-* **`Backbone_MODEL_NAME`** *: Model name of the backbone model (e.g., Llama-8B).
+* **`Backbone_MODEL_NAME`**: Model name of the backbone model (e.g., Llama-8B).
 
-* **`Dataset_dir`** *: Directory containing selected dataset results.
+* **`Dataset_dir`**: Directory containing selected dataset results.
 
-* **`Base_dir`** *: Output directory for iterative revisions.
+* **`Base_dir`**: Output directory for iterative revisions.
 
-* **`result_Path`** *: Path to save the final revised dataset.
+* **`result_Path`**: Path to save the final revised dataset.
 
-* **`name`** *: Dataset identifier (e.g., Dolly, Alpaca).
+* **`name`**: Dataset identifier (e.g., Dolly, Alpaca).
 
 
 #### (3) Merge High-Quality and Revised Data
