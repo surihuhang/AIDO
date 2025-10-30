@@ -51,6 +51,7 @@ Demonstrates AIDO’s **comprehensive correction** across all components — ins
 - **Lose probabilities:** 7.00% (*Alpaca*), 4.00% (*Dolly*)  
 - **Instruction/Input failure rates:** reduced to 2.50% and 3.00%, respectively
 - **Ouput failure rates:** reduced to 6.50% and 7.00%, respectively
+
 ![AIDO Human Evaluation](Figures/huamn-eval.png)
 
 
