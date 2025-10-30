@@ -35,8 +35,8 @@ We propose **AIDO** — an **A**utomated **I**nstruction **D**ata **O**ptimizati
 
 | Dataset    | Accuracy (%) | Δ vs Raw data | Δ vs SoTA (Selection) | Δ vs SoTA (Revision) | Data Reduction (vs Raw / SoAT)(%) |
 | :--------- | :----------: |:-------------:| :-------------------: | :------------------: | :-------------------------------: |
-| **Alpaca** |     61.02    |     +2.50     |         +2.50         |         +2.09        |            32.69 / 50.00          |
-| **Dolly**  |     60.39    |     +2.50     |         +3.65         |         +2.60        |            20.00 / 79.66          |
+| **Alpaca** |     61.02    |     +6.69     |         +2.50         |         +2.09        |            32.69 / 50.00          |
+| **Dolly**  |     60.39    |     +4.72     |         +3.65         |         +2.60        |            20.00 / 79.66          |
 
 AIDO not only enhances **data quality** but also significantly improves **reasoning, factuality**, and **generalization** across diverse task types.
 
@@ -49,7 +49,8 @@ All sample sources and versions were **anonymized** to prevent bias.
 Demonstrates AIDO’s **comprehensive correction** across all components — instructions, inputs, and outputs.
 
 - **Lose probabilities:** 7.00% (*Alpaca*), 4.00% (*Dolly*)  
-- **Instruction/Input failure rates:** reduced to 2.50% and 3.00%, respectively  
+- **Instruction/Input failure rates:** reduced to 2.50% and 3.00%, respectively
+- **Ouput failure rates:** reduced to 6.50% and 7.00%, respectively
 ![AIDO Human Evaluation](Figures/huamn-eval.png)
 
 
