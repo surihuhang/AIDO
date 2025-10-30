@@ -15,7 +15,7 @@
 - [Human Evaluation](#human-evaluation)
 - [Install](#install)
 - [Usage](#Usage)
-- [Usage](#Usage)
+- [Contact](#Contact)
 ---
 
 ## Overview
