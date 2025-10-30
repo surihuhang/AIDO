@@ -71,6 +71,30 @@ Demonstrates AIDO’s **comprehensive correction** across all components evaluat
 
 ## Usage 
 
+### 1. Data Selection Module
+
+#### (1) Environment Setup
+
+Deploy the **Llama-70B** model with [vLLM](https://github.com/vllm-project/vllm):
+
+```bash
+conda activate evalscope
+
+CUDA_VISIBLE_DEVICES=0,1 nohup python -m vllm.entrypoints.openai.api_server \
+    --model MODEL_PATH \
+    --served-model-name llama3.1-70B \
+    --dtype bfloat16 \
+    --port YOUR_API_PORT \
+    --tensor-parallel-size 2 \
+    --gpu-memory-utilization 0.95 \
+    --max-model-len 8192 > vllm-70B.log 2>&1 &
+```
+Replace:
+YOUR_API_PORT: The port number for your OpenAI-compatible API server (e.g., 9000)
+MODEL_PATH: Path to your local Llama3.1-70B
+
+
+#### (1) Step 1 — Coarse-Grained LLM Scoring & Classification
 
 ---
 
