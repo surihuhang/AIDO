@@ -103,15 +103,15 @@ python Select/Classifing_Scoring.py \
     --model_name "llama3.1-70B" \
     --name Dolly
 ```
-* **`--input_path`** *: Path to the raw dataset (e.g., Dolly, Alpaca). (Replace with your dataset)
+* **`--input_path`**: Path to the raw dataset (e.g., Dolly, Alpaca). (Replace with your dataset)
 
-* **`--output_dir`** *: Directory to save scoring results.
+* **`--output_dir`**: Directory to save scoring results.
 
-* **`--api_base`** *: API endpoint for the deployed Llama model.
+* **`--api_base`**: API endpoint for the deployed Llama model.
 
-* **`--model_name`** *: The model name defined in the vLLM server.
+* **`--model_name`**: The model name defined in the vLLM server.
 
-* **`--name`** *: Dataset name tag for output files.
+* **`--name`**: Dataset name tag for output files.
 
 
 #### (3) Step 2 — Fine-Grained Metric Ranking & Clustering
