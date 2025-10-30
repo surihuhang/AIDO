@@ -52,6 +52,12 @@ Demonstrates AIDO’s **comprehensive correction** across all components — ins
 - **Instruction/Input failure rates:** reduced to 2.50% and 3.00%, respectively
 - **Ouput failure rates:** reduced to 6.50% and 7.00%, respectively
 
+<center>
+
 ![AIDO Human Evaluation](Figures/huamn-eval.png)
+
+</center>
+
+
 
 
