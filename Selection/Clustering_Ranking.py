@@ -192,8 +192,7 @@ def parse_args():
     
     # --- Part 3 (Filter & Save) ---
     parser.add_argument("--output_dir", type=str, required=True, help="Directory to save final 'high' and 'low' JSON files.")
-    parser.add_argument("--result_dir", type=str, required=True, help="Directory to save final 'high' JSON files.")
-    parser.add_argument("--k_ratio", type=float, required=True, default=0.8, help="Proportion (0.0-1.0) of data to select as 'High' from each cluster.")
+    parser.add_argument("--k_ratio", type=float, default=0.8, help="Proportion (0.0-1.0) of data to select as 'High' from each cluster.")
     parser.add_argument("--name", type=str, required=True, help="Base name for output files (e.g., 'Dolly', 'Alpaca').")
 
     args = parser.parse_args()
@@ -205,6 +204,7 @@ def main():
     args = parse_args()
     print("Full Pipeline: Analysis, Clustering, and Proportional Selection.")
     print(args)
+    input_json = os.path.join(args.json_data_path , "Data_stage_1_all.json")
 
     # =========================================================================
     # PART 1: Calculate PPL and Embeddings
@@ -227,9 +227,9 @@ def main():
     )
 
     # --- Fix: Load using JSONL format ---
-    print(f"Loading data from {args.json_data_path} (JSONL format)...")
+    print(f"Loading data from {input_json} (JSONL format)...")
     full_json_data = []
-    with open(args.json_data_path, 'r', encoding='utf-8') as f:
+    with open(input_json, 'r', encoding='utf-8') as f:
         for line in f:
             if line.strip(): # Avoid empty lines
                 try:
@@ -356,13 +356,14 @@ def main():
     
     output_high_filename = os.path.join(args.output_dir, f"{args.name}_stage_2_high.json")
     output_low_filename = os.path.join(args.output_dir, f"{args.name}_stage_2_low.json")
-    result_high_filename = os.path.join(args.result_dir, f"{args.name}_high.json")
+    result_high_filename = os.path.join(args.output_dir, f"{args.name}_high.json")
     # Save data with label "High" (as a JSON array)
     with open(output_high_filename, 'w', encoding='utf-8') as f:
         json.dump(high_data, f, ensure_ascii=False, indent=4)
     print(f"High priority data saved to: {output_high_filename} ({len(high_data)} items)")
 
     # Save data with label "High" (as a JSON array)
+
     with open(result_high_filename, 'w', encoding='utf-8') as f:
         json.dump(high_data, f, ensure_ascii=False, indent=4)
     print(f"High priority data saved to: {result_high_filename} ({len(high_data)} items)")
