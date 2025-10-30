@@ -3,6 +3,7 @@ on_exit() {
   # All tasks complete, attempting to clean up child processes...
   echo "All tasks complete, attempting to clean up child processes..."
 
+
   # Get the current script's PID and Process Group ID (PGID)
   CURRENT_PID=$$
   PGID=$(ps -o pgid= $$ | tr -d ' ')
