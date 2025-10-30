@@ -65,7 +65,34 @@ Demonstrates AIDO’s **comprehensive correction** across all components evaluat
 ---
 
 ## Install
+Before running AIDO, please make sure you have **Python ≥ 3.9** and **conda** (or **pip**) installed.
 
+### 1. Create Environment
+
+You can create a clean environment for AIDO (recommended via conda):
+
+```bash
+conda create -n aido python=3.10
+conda activate aido
+```
+
+AIDO mainly depends on the following:
+
+```bash
+openai<=0.28.0 
+transformers==4.55.3 
+torch==2.8.0 
+tokenizers==0.21.4 
+tqdm==4.67.1 
+vllm==0.10.0
+```
+
+- Ensure your CUDA version matches the installed torch version.
+
+- If you encounter compatibility issues with GPUs, you can check PyTorch installation guide
+ for the correct CUDA wheel.
+
+- vllm requires CUDA and supports efficient inference of large models such as Llama.
 
 ---
 
