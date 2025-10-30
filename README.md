@@ -89,11 +89,29 @@ CUDA_VISIBLE_DEVICES=0,1 nohup python -m vllm.entrypoints.openai.api_server \
     --gpu-memory-utilization 0.95 \
     --max-model-len 8192 > vllm-70B.log 2>&1 &
 ```
-Replace:
-* **`YOUR_API_PORT`**: Port for your OpenAI-compatible API server (e.g., 9000)
-* **`./models/Llama-3.3-70B-Instruct`**: Path to your local model
+* **`YOUR_API_PORT`** *: Port for your OpenAI-compatible API server (e.g., 9000)
+* **`./models/Llama-3.3-70B-Instruct`** *: Path to your local model
 
 #### (1) Step 1 — Coarse-Grained LLM Scoring & Classification
+
+```bash
+python Select/Classifing_Scoring.py \
+    --input_path ../Dataset/Dolly_data_15k.json \
+    --output_dir ../Result/Dolly \
+    --api_base "[http://0.0.0.0:9000/v1](http://0.0.0.0:9000/v1)" \
+    --model_name "llama3.1-70B" \
+    --name Dolly
+```
+* **`--input_path`** *: Path to the raw dataset (e.g., Dolly, Alpaca). (Replace with your dataset)
+
+--output_dir: Directory to save scoring results.
+
+--api_base: API endpoint for the deployed Llama model.
+
+--model_name: The model name defined in the vLLM server.
+
+--name: Dataset name tag for output files.
+
 
 ---
 
