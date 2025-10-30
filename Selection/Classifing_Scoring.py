@@ -69,8 +69,7 @@ def process_item(item, api_key, api_base, model_name, output_dir, system_prompt,
             score = match.group(1)
             item["score"] = int(score)
             score_val = score
-            output_file_path = os.path.join(output_dir, 'Data_stage_1_all.json')
-            lock_to_use = write_lock
+            output_file_path_all = os.path.join(output_dir, 'Data_stage_1_all.json')
             if score == '1':
                 # Score is 1, save to low file
                 output_file_path = os.path.join(output_dir, 'Data_stage_1_low.json')
@@ -94,7 +93,10 @@ def process_item(item, api_key, api_base, model_name, output_dir, system_prompt,
             with open(output_file_path, 'a', encoding='utf-8') as f:
                 # Write in jsonl format (one json per line)
                 f.write(json.dumps(item, ensure_ascii=False) + '\n')
-        
+        with write_lock:
+            with open(output_file_path_all, 'a', encoding='utf-8') as f:
+                # Write in jsonl format (one json per line)
+                f.write(json.dumps(item, ensure_ascii=False) + '\n')
         return f"ID {item.get('sample_id', 'N/A')} processed. Score: {score_val}. Saved to {os.path.basename(output_file_path)}"
     
     except Exception as e:
@@ -176,16 +178,49 @@ Justification: {no more than 100 words; mention strengths and weaknesses in term
 
     # --- Argparse setup (modified) ---
     parser = argparse.ArgumentParser(description="Process instruction data using an LLM API.")
-    parser.add_argument('--input_path', type=str, required=True, help='Path to the input JSON file.')
+    
+    parser.add_argument(
+        '--input_path', 
+        type=str, 
+        required=True, 
+        help='Path to the input JSON file.'
+    )
     # --- Change: output_path -> output_dir ---
-    parser.add_argument('--output_dir', type=str, required=True, help='Path to the output directory for high/low score files.)
+    parser.add_argument(
+        '--output_dir', 
+        type=str, 
+        required=True, 
+        help='Path to the output directory for high/low score files.'
+    )
     # --- (Other parameters remain unchanged) ---
-    parser.add_argument('--api_base', type=str, default="http://0.0.0.0:9000/v1", help='The base URL for the OpenAI compatible API.')
-    parser.add.argument('--model_name', type=str, default='deepseek-chat', help='The name of the model to use.')
-    parser.add_argument('--prompt_name', type=str, default='qac_no_shot', choices=AVAILABLE_PROMPTS.keys(), help='The name of the system prompt to use.')
-    parser.add_argument('--max_workers', type=int, default=len(API_KEYS), help='Maximum number of concurrent threads.)
+    parser.add_argument(
+        '--api_base', 
+        type=str, 
+        default="http://0.0.0.0:9000/v1", 
+        help='The base URL for the OpenAI compatible API.'
+    )
+    parser.add_argument(
+        '--model_name', 
+        type=str, 
+        default='deepseek-chat', 
+        help='The name of the model to use.'
+    )
+    parser.add_argument(
+        '--prompt_name', 
+        type=str, 
+        default='qac_no_shot', 
+        choices=AVAILABLE_PROMPTS.keys(), 
+        help='The name of the system prompt to use.'
+    )
+    parser.add_argument(
+        '--max_workers', 
+        type=int, 
+        default=len(API_KEYS), 
+        help='Maximum number of concurrent threads.'
+    )
 
     args = parser.parse_args()
+
     # --- Run main program (modified) ---
 
     start_time = time.time() 
@@ -210,7 +245,7 @@ Justification: {no more than 100 words; mention strengths and weaknesses in term
         os.remove(output_file_low)
 
     print(f"Starting processing...")
-    print(f"Input file: {args.input_path")
+    print(f"Input file: {args.input_path}")
     print(f"Output directory: {args.output_dir}")
     print(f"API Base: {args.api_base}")
     print(f"Model: {args.model_name}")
@@ -218,7 +253,7 @@ Justification: {no more than 100 words; mention strengths and weaknesses in term
     print(f"Prompt: {args.prompt_name}")
 
     main(
-        input_path=args.input_path + args.datast_name, 
+        input_path=args.input_path, 
         output_dir=args.output_dir,
         system_prompt=selected_system_prompt,
         api_base=args.api_base,
@@ -234,5 +269,3 @@ Justification: {no more than 100 words; mention strengths and weaknesses in term
 
     print(f"\nProcessing complete. Results saved to {args.output_dir}")
     print(f"Total execution time: {minutes} minutes and {seconds} seconds.")
-
-
