@@ -187,7 +187,7 @@ Justification: {no more than 100 words; mention strengths and weaknesses in term
     parser.add_argument('--max_workers', type=int, default=len(API_KEYS), help='Maximum number of concurrent threads.)
 
     args = parser.parse_args()
-
+    output_path = args.output_dir + args.datast_name +'_classifying_scoring/'
     # --- Run main program (modified) ---
 
     start_time = time.time() 
@@ -195,12 +195,12 @@ Justification: {no more than 100 words; mention strengths and weaknesses in term
     selected_system_prompt = AVAILABLE_PROMPTS[args.prompt_name]
 
     # --- Change: Handle output directory and files ---
-    output_file_high = os.path.join(args.output_dir, 'Data_stage_1_high.json')
-    output_file_low = os.path.join(args.output_dir, 'Data_stage_1_low.json')
+    output_file_high = os.path.join(output_path, 'Data_stage_1_high.json')
+    output_file_low = os.path.join(output_path, 'Data_stage_1_low.json')
 
     # Ensure output directory exists
-    if not os.path.exists(args.output_dir):
-        os.makedirs(args.output_dir)
+    if not os.path.exists(output_path):
+        os.makedirs(output_path)
         print(f"Created output directory: {args.output_dir}")
 
     if os.path.exists(output_file_high):
@@ -212,8 +212,8 @@ Justification: {no more than 100 words; mention strengths and weaknesses in term
         os.remove(output_file_low)
 
     print(f"Starting processing...")
-    print(f"Input file: {args.input_path + args.datast_name}")
-    print(f"Output directory: {args.output_dir}")
+    print(f"Input file: {args.input_path")
+    print(f"Output directory: {output_path}")
     print(f"API Base: {args.api_base}")
     print(f"Model: {args.model_name}")
     print(f"Workers: {args.max_workers}")
@@ -221,7 +221,7 @@ Justification: {no more than 100 words; mention strengths and weaknesses in term
 
     main(
         input_path=args.input_path + args.datast_name, 
-        output_dir=args.output_dir,
+        output_dir=output_path,
         system_prompt=selected_system_prompt,
         api_base=args.api_base,
         model_name=args.model_name,
@@ -236,4 +236,5 @@ Justification: {no more than 100 words; mention strengths and weaknesses in term
 
     print(f"\nProcessing complete. Results saved to {args.output_dir}")
     print(f"Total execution time: {minutes} minutes and {seconds} seconds.")
+
 
