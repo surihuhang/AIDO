@@ -188,12 +188,12 @@ def parse_args():
     parser.add_argument("--sent_type", type=int, default=0, help="Index of the sentence embedding to use.")
     parser.add_argument("--ppl_type", type=int, default=0, help="Index of the PPL/IFD score to use.")
     parser.add_argument("--cluster_method", type=str, default='kmeans', help="Clustering method to use (default: kmeans).")
-    parser.add_argument("--kmeans_num_clusters", type=int, default=100, help="Number of clusters for KMeans.")
+    parser.add_argument("--kmeans_num_clusters", type=int, default=132, help="Number of clusters for KMeans.")
     
     # --- Part 3 (Filter & Save) ---
     parser.add_argument("--output_dir", type=str, required=True, help="Directory to save final 'high' and 'low' JSON files.")
     parser.add_argument("--result_dir", type=str, required=True, help="Directory to save final 'high' JSON files.")
-    parser.add_argument("--k_ratio", type=float, required=True, help="Proportion (0.0-1.0) of data to select as 'High' from each cluster.")
+    parser.add_argument("--k_ratio", type=float, required=True, default=0.8, help="Proportion (0.0-1.0) of data to select as 'High' from each cluster.")
     parser.add_argument("--name", type=str, required=True, help="Base name for output files (e.g., 'Dolly', 'Alpaca').")
 
     args = parser.parse_args()
