@@ -122,8 +122,6 @@ CUDA_VISIBLE_DEVICES=2,3 nohup python Select/Clustering_Ranking.py \
     --model_name_or_path ../models/Meta-Llama-3.1-8B-Instruct \
     --output_dir ../Result/Dolly/ \
     --max_length 4096 \
-    --prompt alpaca \
-    --mod pre \
     --name Dolly > Dolly_stage_2.log 2>&1 &
 ```
 * **`--json_data_path`**: Directory containing scoring results from Step 1.
@@ -133,10 +131,6 @@ CUDA_VISIBLE_DEVICES=2,3 nohup python Select/Clustering_Ranking.py \
 * **`--output_dir`**: Output directory for clustered/ranked data.
 
 * **`--max_length`**: Maximum token length for model input.
-
-* **`--prompt`**: Prompt type or dataset template (e.g., alpaca, dolly).
-
-* **`--mod`**: Mode for data processing (pre, post, etc.).
 
 * **`--name`**: Dataset name for log identification.
 
@@ -171,9 +165,9 @@ CUDA_VISIBLE_DEVICES=2 nohup python -m vllm.entrypoints.openai.api_server \
 #### (2) Run Iterative Revision
 Edit Revise/step_run.sh to configure the model endpoints:
 ```bash
-export Strong_API_BASE="[http://0.0.0.0:9000/v1](http://0.0.0.0:9000/v1)"     # 70B model
+export Strong_API_BASE="http://0.0.0.0:9000/v1"     # 70B model
 export Strong_MODEL_NAME="llama3.1-70B"
-export Backbone_API_BASE="[http://0.0.0.0:8000/v1](http://0.0.0.0:8000/v1)"   # 8B model
+export Backbone_API_BASE="http://0.0.0.0:8000/v1"   # 8B model
 export Backbone_MODEL_NAME="llama3.1-8B"
 
 Dataset_dir="../Result/Dolly/"
