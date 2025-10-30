@@ -92,7 +92,7 @@ CUDA_VISIBLE_DEVICES=0,1 nohup python -m vllm.entrypoints.openai.api_server \
 * **`YOUR_API_PORT`** *: Port for your OpenAI-compatible API server (e.g., 9000)
 * **`./models/Llama-3.3-70B-Instruct`** *: Path to your local model
 
-#### (1) Step 1 — Coarse-Grained LLM Scoring & Classification
+#### (2) Step 1 — Coarse-Grained LLM Scoring & Classification
 
 ```bash
 python Select/Classifing_Scoring.py \
@@ -104,14 +104,112 @@ python Select/Classifing_Scoring.py \
 ```
 * **`--input_path`** *: Path to the raw dataset (e.g., Dolly, Alpaca). (Replace with your dataset)
 
---output_dir: Directory to save scoring results.
+* **`--output_dir`** *: Directory to save scoring results.
 
---api_base: API endpoint for the deployed Llama model.
+* **`--api_base`** *: API endpoint for the deployed Llama model.
 
---model_name: The model name defined in the vLLM server.
+* **`--model_name`** *: The model name defined in the vLLM server.
 
---name: Dataset name tag for output files.
+* **`--name`** *: Dataset name tag for output files.
 
+
+#### (3) Step 2 — Fine-Grained Metric Ranking & Clustering
+
+```bash
+CUDA_VISIBLE_DEVICES=2,3 nohup python Select/Clustering_Ranking.py \
+    --json_data_path ../Result/Dolly/ \
+    --model_name_or_path ../models/Meta-Llama-3.1-8B-Instruct \
+    --output_dir ../Result/Dolly/ \
+    --max_length 4096 \
+    --prompt alpaca \
+    --mod pre \
+    --name Dolly > Dolly_stage_2.log 2>&1 &
+```
+* **`--json_data_path`** *: Directory containing scoring results from Step 1.
+
+* **`--model_name_or_path`** *: Path to smaller evaluation model (8B).
+
+* **`--output_dir`** *: Output directory for clustered/ranked data.
+
+* **`--max_length`** *: Maximum token length for model input.
+
+* **`--prompt`** *: Prompt type or dataset template (e.g., alpaca, dolly).
+
+* **`--mod`** *: Mode for data processing (pre, post, etc.).
+
+* **`--name`** *: Dataset name for log identification.
+
+
+### 2. Data Revision Module
+
+#### (1) Environment Setup
+Deploy both Llama-70B and Llama-8B using vLLM:
+```bash
+# Strong model (70B)
+conda activate evalscope
+CUDA_VISIBLE_DEVICES=0,1 nohup python -m vllm.entrypoints.openai.api_server \
+    --model ./models/Llama-3.1-70B-Instruct \
+    --served-model-name llama3.1-70B \
+    --dtype bfloat16 \
+    --port 9000 \
+    --tensor-parallel-size 2 \
+    --gpu-memory-utilization 0.95 \
+    --max-model-len 8192 > vllm-70B.log 2>&1 &
+
+# Backbone model (8B)
+CUDA_VISIBLE_DEVICES=2 nohup python -m vllm.entrypoints.openai.api_server \
+    --model ./models/Llama-3.1-8B-Instruct \
+    --served-model-name llama3.1-8B \
+    --dtype bfloat16 \
+    --port 8000 \
+    --tensor-parallel-size 1 \
+    --gpu-memory-utilization 0.85 \
+    --max-model-len 8192 > vllm-8B.log 2>&1 &
+```
+
+#### (2) Run Iterative Revision
+Edit Revise/step_run.sh to configure the model endpoints:
+```bash
+export Strong_API_BASE="[http://0.0.0.0:9000/v1](http://0.0.0.0:9000/v1)"     # 70B model
+export Strong_MODEL_NAME="llama3.1-70B"
+export Backbone_API_BASE="[http://0.0.0.0:8000/v1](http://0.0.0.0:8000/v1)"   # 8B model
+export Backbone_MODEL_NAME="llama3.1-8B"
+
+Dataset_dir="../Result/Dolly/"
+Base_dir="../Result/Dolly/Revise_step_output"
+result_Path="${Dataset_dir}Dolly_Revised.json"
+name="Dolly"
+```
+Then execute:
+```bash
+bash Revise/Iterative_Revise_Run.sh
+```
+
+* **`Strong_API_BASE`** *: API of the stronger model (used for evaluation/revision).
+
+* **`Strong_MODEL_NAME`** *: Model name of the strong model (e.g., Llama-70B).
+
+* **`Backbone_API_BASE`** *: API of the smaller model (used as backbone).
+
+* **`Backbone_MODEL_NAME`** *: Model name of the backbone model (e.g., Llama-8B).
+
+* **`Dataset_dir`** *: Directory containing selected dataset results.
+
+* **`Base_dir`** *: Output directory for iterative revisions.
+
+* **`result_Path`** *: Path to save the final revised dataset.
+
+* **`name`** *: Dataset identifier (e.g., Dolly, Alpaca).
+
+
+#### (3) Merge High-Quality and Revised Data
+
+```bash
+python Result/Connect.py \
+    --input_path_1 "./Result/Dolly/Dolly_high.json" \
+    --input_path_2 "./Result/Dolly/Dolly_Revised.json" \
+    --output_path "./Result/Dolly/Dolly_Final_Data.json"
+```
 
 ---
 
