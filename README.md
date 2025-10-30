@@ -90,9 +90,8 @@ CUDA_VISIBLE_DEVICES=0,1 nohup python -m vllm.entrypoints.openai.api_server \
     --max-model-len 8192 > vllm-70B.log 2>&1 &
 ```
 Replace:
-YOUR_API_PORT: The port number for your OpenAI-compatible API server (e.g., 9000)
-MODEL_PATH: Path to your local Llama3.1-70B
-
+* **`YOUR_API_PORT`**: Port for your OpenAI-compatible API server (e.g., 9000)
+* **`./models/Llama-3.3-70B-Instruct`**: Path to your local model
 
 #### (1) Step 1 — Coarse-Grained LLM Scoring & Classification
 
