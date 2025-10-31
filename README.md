@@ -67,8 +67,6 @@ Demonstrates AIDO’s **comprehensive correction** across all components evaluat
 ## Install
 Before running AIDO, please make sure you have **Python ≥ 3.9** and **conda** (or **pip**) installed.
 
-### 1. Create Environment
-
 You can create a clean environment for AIDO (recommended via conda):
 
 ```bash
